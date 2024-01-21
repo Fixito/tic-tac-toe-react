@@ -20,6 +20,11 @@ const Game = () => {
   const moves = history.map((_squares, move) => {
     let description = null;
 
+    if (move === history.length - 1) {
+      description = 'You are at move #' + move;
+      return <li key={move}>{description}</li>;
+    }
+
     if (move > 0) {
       description = 'Go to move #' + move;
     } else {
