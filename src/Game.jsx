@@ -6,6 +6,7 @@ const Game = () => {
   const [currentMove, setCurrentMove] = useState(0);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
+  const [isSorted, setIsSorted] = useState(false);
 
   const handlePlay = (nextSquares) => {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
@@ -15,6 +16,10 @@ const Game = () => {
 
   const jumpTo = (nextMove) => {
     setCurrentMove(nextMove);
+  };
+
+  const sortMoves = () => {
+    setIsSorted(!isSorted);
   };
 
   const moves = history.map((_squares, move) => {
@@ -44,7 +49,10 @@ const Game = () => {
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
       <div className='game-info'>
-        <ol>{moves}</ol>
+        <button style={{ marginInlineStart: '40px' }} onClick={sortMoves}>
+          Sort {isSorted ? 'ascending' : 'descending'}
+        </button>
+        <ol>{isSorted ? moves.toReversed() : moves}</ol>
       </div>
     </div>
   );
